@@ -19,8 +19,8 @@ class evaluate_model:
         ax[0].plot(history.history['val_loss'], color='r', label="validation loss",axes =ax[0])
         legend = ax[0].legend(loc='best', shadow=True)
 
-        ax[1].plot(history.history['acc'], color='b', label="Training accuracy")
-        ax[1].plot(history.history['val_acc'], color='r',label="Validation accuracy")
+        ax[1].plot(history.history['accuracy'], color='b', label="Training accuracy") #acc
+        ax[1].plot(history.history['val_accuracy'], color='r',label="Validation accuracy") #val_acc
         legend = ax[1].legend(loc='best', shadow=True)
         plt.show()
 
