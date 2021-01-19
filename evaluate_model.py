@@ -55,6 +55,45 @@ class evaluate_model:
         plt.show()
 
     @staticmethod
+    def plot_confusion_matrix_big(y_true, 
+                          y_pred, 
+                          target_names, 
+                          title='Confusion matrix', 
+                          xticks_rotation=80,
+                          savefig=False):
+    '''Plots the cm confusion matrix
+    '''
+    cm = confusion_matrix(y_true, y_pred)
+    # create figure
+    plt.figure(figsize=(10, 8))
+    plt.imshow(cm, interpolation = 'nearest', cmap=plt.cm.Blues)
+    plt.title(title)
+    # add colorbar
+    plt.colorbar()
+    # add the names of the target_names as ticks
+    tick_marks = np.arange(len(target_names))
+    plt.xticks(tick_marks, target_names, rotation=xticks_rotation, fontsize=14)
+    plt.yticks(tick_marks, target_names, fontsize=14)
+
+    # colorization
+    thresh = cm.max() / 2.
+    for i, j in itertools.product(range(cm.shape[0]), range(cm.shape[1])):
+        plt.text(j, i, format(cm[i, j], 'd'),
+                 horizontalalignment="center", 
+                 fontsize=12,
+                 color="white" if cm[i, j] > thresh else "black")
+    # additional settings
+    plt.tight_layout()
+    plt.grid(False)
+    plt.ylabel('True label')
+    plt.xlabel('Predicted label')
+    # save figure
+    if savefig:
+        plt.savefig('confusion_matrix.png')        
+        
+    plt.show()
+
+    @staticmethod
     def Clf_report(model,Ytrue,YPred):
         print("Classification report for classifier %s:\n%s\n"
               % (model, metrics.classification_report(Ytrue, YPred)))
